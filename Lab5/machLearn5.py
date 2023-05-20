@@ -35,7 +35,7 @@ def get_RSS(X, y):
     error = y_test.values - model.predict(X_test)
     return sum(error ** 2)
 
-def task2():
+def task1():
     data = pd.read_csv('reglab.txt', sep='\t')
     X = data.iloc[:, 1:]
     y = data.iloc[:, 0]
@@ -71,7 +71,6 @@ def task2():
                 print('RSS:', rss)
                 print()
                 results[' '.join(features.columns.values)] = rss
-
 def task3():
     data = pd.read_csv('cygage.txt', sep='\t')
     X = data['Depth']
@@ -122,43 +121,6 @@ def taks4():
     print('Test score:', model.score(X_test, y_test))
 
 def task5():
-    data = pd.read_csv('eustock.csv')
-    data.head()
-    coefs = []
-    intercepts = []
-    X = np.arange(data.shape[0]).reshape(-1, 1)
-    plt.figure(figsize=(12, 9))
-    for col in data.columns.values:
-        y = data[col]
-        plt.plot(X, y, label=col)
-        model = LinearRegression()
-        model.fit(X, y)
-        coefs.append(model.coef_)
-        intercepts.append(model.intercept_)
-        print(col)
-        print('Coefficient of determination:', model.score(X, y))
-        print('Slope coef:', model.coef_)
-        print()
-    plt.xticks()
-    plt.yticks()
-    plt.legend()
-    plt.show()
-    model = LinearRegression()
-    model.fit(X, data)
-    print('All')
-    print('Coefficient of determination:', model.score(X, data))
-    print('Slope coef:', model.coef_)
-    plt.figure(figsize=(12, 9))
-    for i, col in enumerate(data.columns.values):
-        vals = coefs[i] * X + intercepts[i]
-        plt.plot(X, vals, label=col)
-    plt.xticks()
-    plt.yticks()
-    plt.legend()
-    plt.legend()
-    plt.show()
-
-def task6():
     data = pd.read_csv('JohnsonJohnson.csv')
     data.head()
     data[['Year', 'Quater']] = data['index'].str.split(' ', expand=True)
@@ -208,7 +170,7 @@ def task6():
     plt.title("Линейная регрессия")
     plt.show()
 
-def task7():
+def task6():
     data = pd.read_csv('cars.csv')
     data.head()
     X = data['speed'].values.reshape(-1, 1)
@@ -249,6 +211,7 @@ def task9():
     models = (
         LinearRegression(),
         SVR(),
+        SVR(C = 1000),
         SVR(kernel='poly', degree=2),
         DecisionTreeRegressor(),
         DecisionTreeRegressor(max_depth=3)
@@ -257,6 +220,7 @@ def task9():
     titles = (
         'Linear regression',
         'Default SVR',
+        'Default SVR with C = 1000',
         'SVR with poly kernel and degree=3',
         'Default Decision tree',
         'Decision tree with max_depth=3'
@@ -266,4 +230,6 @@ def task9():
         model.fit(X_train, y_train)
         print(title)
         print('Test score:', model.score(X_test, y_test))
+        print("Mean squared error: %.2f" % mean_squared_error(y_test, model.predict(X_test)))
         print()
+task9()
