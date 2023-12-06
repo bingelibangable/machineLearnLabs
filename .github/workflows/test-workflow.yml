@@ -1,24 +1,25 @@
 name: test-workflow
 run-name: testings
 on: push
+  workflow_dispatch:
 jobs:
   print-test:
     runs-on: self-hosted
     steps:
       - name: pull rep
-      - uses: actions/checkout@v4
-      - id: ls-file
-      - run: |
+        uses: actions/checkout@v4
+      - name: print ls output
+        id: ls-file
+        run: |
           ls > temp.txt
           fileOutput = $(cat temp.txt)
           echo outputCont=$fileOutput >> $GITHUB_OUTPUT
       - name: write ls output
-      - run: |
-          echo "${{steps.ls-file.outputs.outputCont}}"
+        run: echo "${{steps.ls-file.outputs.outputCont}}"
   exit-with-error:
     runs-on: self-hosted
     steps:
       - name: trying to print
-      - run: echo "jopa"
+        run: echo "jopa"
       - name: exit with error
-      - run: exit 1
+        run: exit 1
