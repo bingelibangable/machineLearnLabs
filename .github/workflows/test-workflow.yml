@@ -13,7 +13,7 @@ jobs:
           fileOutput = $(cat temp.txt)
           echo outputCont=$fileOutput >> $GITHUB_OUTPUT
       - name: write ls output
-      - run |
+      - run: |
           echo "${{steps.ls-file.outputs.outputCont}}"
   exit-with-error:
     runs-on: self-hosted
