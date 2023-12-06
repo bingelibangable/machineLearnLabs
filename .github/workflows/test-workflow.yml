@@ -1,0 +1,24 @@
+name: test-workflow
+run-name: testings
+on: push
+jobs:
+  print-test:
+    runs-on: self-hosted
+    steps:
+      - name: pull rep
+      - uses: actions/checkout@v4
+      - id: ls-file
+      - run: |
+          ls > temp.txt
+          fileOutput = $(cat temp.txt)
+          echo outputCont=$fileOutput >> $GITHUB_OUTPUT
+      - name: write ls output
+      - run |
+          echo "${{steps.ls-file.outputs.outputCont}}"
+  exit-with-error:
+    runs-on: self-hosted
+    steps:
+      - name: trying to print
+      - run: echo "jopa"
+      - name: exit with error
+      - run: exit 1
