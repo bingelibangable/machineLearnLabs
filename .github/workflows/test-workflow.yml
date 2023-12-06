@@ -11,7 +11,7 @@ jobs:
         id: ls-file
         run: |
           ls > temp.txt
-          fileOutput = $(cat temp.txt)
+          $fileOutput = $(cat temp.txt)
           echo outputCont=$fileOutput >> $GITHUB_OUTPUT
       - name: write ls output
         run: echo "${{steps.ls-file.outputs.outputCont}}"
@@ -19,6 +19,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: trying to print
-        run: echo "jopa"
+        run: ls
       - name: exit with error
         run: exit 1
