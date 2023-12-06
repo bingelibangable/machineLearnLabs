@@ -1,7 +1,6 @@
 name: test-workflow
 run-name: testings
-on: push
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 jobs:
   print-test:
     runs-on: self-hosted
